@@ -75,3 +75,23 @@
     ```bash
     $ sudo make local-universe
     ```
+
+## Docker Image for Building Your Own
+
+A `Dockerfile.builder` is available in the root of this project to create an image that:
+
+- Locks your `build-essential` and `python` environments
+
+- Provides a disposable, off-the-shelf approach to those who do not want to go through the setting up of the workspace nor tinkering of `Makefile`s
+
+- Easily builds a universe image just by specifying the list of universe packages in the environment varialbe `DCOS_PACKAGES`
+
+    ```bash
+    $ docker run --rm -e DCOS_PACKAGES="marathon-lb" -v /var/run/docker.sock:/var/run/docker.sock mesosphere/local-universe-builder
+    ```
+
+To create the image:
+
+    ```bash
+    $ docker build -f Dockerfile.builder -t mesosphere/local-universe-builder
+    ```
